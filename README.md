@@ -11,7 +11,7 @@ NoteNest is a powerful and user-friendly note-taking app for Android devices. Wi
 
 ## Getting Started
 
-NoteNest is not currently available on the Google Play Store, but can be downloaded from this repository. To start using NoteNest, download the app and follow the installation instructions. Once installed, open the app and start creating notes. You can add text, images, and photos to your notes, and categorize them for better organization.
+NoteNest is not currently available on the Google Play Store, but can be downloaded from this repository. To start using NoteNest, download the app and follow the installation instructions. Once installed, open the app and start creating notes. You can add text and categorize them for better organization.
 
 ## Searching Notes
 
