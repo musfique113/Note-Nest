@@ -7,11 +7,75 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <LinearLayout
+        android:id="@+id/filter"
+        android:layout_width="match_parent"
+        android:layout_margin="5dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <androidx.constraintlayout.utils.widget.ImageFilterButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/baseline_filter_list_24">
+        </androidx.constraintlayout.utils.widget.ImageFilterButton>
+
+        <TextView
+            android:id="@+id/noFilter"
+            android:background="@drawable/filter_shape"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_margin="7dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:fontFamily="@font/psregular"
+            android:layout_gravity="center_vertical"
+            android:text="No Filter">
+        </TextView>
+
+        <TextView
+            android:id="@+id/high2low"
+            android:fontFamily="@font/psregular"
+            android:background="@drawable/filter_shape"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_margin="7dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:layout_gravity="center_vertical"
+            android:text="High to low">
+        </TextView>
+        <TextView
+            android:id="@+id/low2high"
+            android:fontFamily="@font/psregular"
+            android:background="@drawable/filter_shape"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_margin="7dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:layout_gravity="center_vertical"
+            android:text="Low to High">
+        </TextView>
+
+
+
+
+
+    </LinearLayout>
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/notesRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
+        android:layout_height="match_parent"
+        android:layout_below="@id/filter"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/newNotesBtn"

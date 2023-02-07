@@ -72,6 +72,7 @@
                 android:layout_height="25dp"
                 android:background="@drawable/green"
                 android:layout_gravity="center"
+                android:src="@drawable/baseline_done_24"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="10dp"/>
             <ImageView
