@@ -1,5 +1,6 @@
 package com.que.notenest.Adapter;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.que.notenest.Activity.UpdateNotesActivity;
 import com.que.notenest.Database.NotesDatabase;
 import com.que.notenest.MainActivity;
 import com.que.notenest.Model.Notes;
@@ -36,19 +38,36 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.notesViewhol
     public void onBindViewHolder(NotesAdapter.notesViewholder holder, int position) {
 
         Notes note = notes.get(position);
-        if (note.notesPriority.equals("1")) {
-            holder.notesPriority.setBackgroundResource(R.drawable.green);
-        } else if (note.notesPriority.equals("2")) {
-            holder.notesPriority.setBackgroundResource(R.drawable.yellow);
-        } else if (note.notesPriority.equals("3")) {
-            holder.notesPriority.setBackgroundResource(R.drawable.red);
+        switch (note.notesPriority) {
+            case "1":
+                holder.notesPriority.setBackgroundResource(R.drawable.green);
+                break;
+            case "2":
+                holder.notesPriority.setBackgroundResource(R.drawable.yellow);
+                break;
+            case "3":
+                holder.notesPriority.setBackgroundResource(R.drawable.red);
+                break;
         }
 
         holder.title.setText(note.notesTitel);
         holder.subtitle.setText(note.notesSubtitel);
         holder.notesDate.setText(note.notesDate);
 
+        holder.itemView.setOnClickListener(v ->{
+            Intent intent = new Intent(mainActivity, UpdateNotesActivity.class);
+            intent.putExtra("id",note.id);
+            intent.putExtra("title",note.notesTitel);
+            intent.putExtra("subtitle",note.notesSubtitel);
+            intent.putExtra("note",note.notes);
+            intent.putExtra("priority",note.notesPriority);
+            mainActivity.startActivity(intent);
+
+        });
+
     }
+
+
 
     @Override
     public int getItemCount() {
