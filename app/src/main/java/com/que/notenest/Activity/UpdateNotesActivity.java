@@ -1,12 +1,20 @@
 package com.que.notenest.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.que.notenest.Model.Notes;
 import com.que.notenest.R;
 import com.que.notenest.ViewModel.NotesViewModel;
@@ -106,5 +114,39 @@ public class UpdateNotesActivity extends AppCompatActivity {
 
         Toast.makeText(this, "Data Updated", Toast.LENGTH_SHORT).show();
         finish();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.delete_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId()==R.id.icDelete){
+            BottomSheetDialog sheetDialog = new BottomSheetDialog(UpdateNotesActivity.this,R.style.BottomSheetStyle);
+
+            View view  = LayoutInflater.from(UpdateNotesActivity.this).inflate(R.layout.delet_bottom_sheet,
+                    (LinearLayout)findViewById(R.id.deleteBottomSheet));
+            sheetDialog.setContentView(view);
+
+            TextView yes,no;
+            yes = view.findViewById(R.id.deleteYes);
+            no = view.findViewById(R.id.deleteNo);
+            yes.setOnClickListener(v ->{
+                notesViewModel.deletNote(iid);
+                finish();
+
+            });
+
+            no.setOnClickListener(v ->{
+                sheetDialog.dismiss();
+            });
+
+
+            sheetDialog.show();
+        }
+        return true;
     }
 }
