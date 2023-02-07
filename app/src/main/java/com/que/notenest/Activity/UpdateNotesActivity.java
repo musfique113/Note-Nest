@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.widget.Toast;
 
+import com.que.notenest.Model.Notes;
 import com.que.notenest.R;
 import com.que.notenest.ViewModel.NotesViewModel;
 import com.que.notenest.databinding.ActivityInsertNotesBinding;
@@ -19,7 +20,8 @@ public class UpdateNotesActivity extends AppCompatActivity {
     ActivityUpdateNotesBinding binding;
     NotesViewModel notesViewModel;
     String priority = "1";
-    String stitle,ssubtitle,snotes,spriority,sid;
+    String stitle,ssubtitle,snotes,spriority;
+    int iid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,18 +29,25 @@ public class UpdateNotesActivity extends AppCompatActivity {
         binding = ActivityUpdateNotesBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        notesViewModel = ViewModelProviders.of(this).get(NotesViewModel.class);
-
         stitle = getIntent().getStringExtra("title");
         ssubtitle = getIntent().getStringExtra("subtitle");
         spriority = getIntent().getStringExtra("priority");
-        sid = getIntent().getStringExtra("id");
+        iid = getIntent().getIntExtra("id",0);
         snotes = getIntent().getStringExtra("note");
 
 
         binding.upTitle.setText(stitle);
         binding.upSubtitle.setText(ssubtitle);
         binding.upNotes.setText(snotes);
+
+        if (spriority.equals("1")){
+            binding.greenPriority.setImageResource(R.drawable.baseline_done_24);
+        } else if (spriority.equals("2")){
+            binding.yellowPriority.setImageResource(R.drawable.baseline_done_24);
+        } else if(spriority.equals("3")){
+            binding.redPriority.setImageResource(R.drawable.baseline_done_24);
+        }
+        notesViewModel = ViewModelProviders.of(this).get(NotesViewModel.class);
 
         binding.greenPriority.setOnClickListener(v ->{
             binding.greenPriority.setImageResource(R.drawable.baseline_done_24);
@@ -81,7 +90,18 @@ public class UpdateNotesActivity extends AppCompatActivity {
 
     private void UpdateNotes(String title, String subtitle, String notes) {
         Date date = new Date();
-        CharSequence sequence = DateFormat.format("MMMM d,YYYY",date.getTime());
+        CharSequence sequence = DateFormat.format("MMMM d,yyyy",date.getTime());
+
+        Notes updateNotes = new Notes();
+
+        updateNotes.id = iid;
+        updateNotes.notesTitel = title;
+        updateNotes.notesSubtitel = subtitle;
+        updateNotes.notes = notes;
+        updateNotes.notesPriority = priority;
+        updateNotes.notesDate = sequence.toString();
+
+        notesViewModel.updateNote(updateNotes);
 
 
         Toast.makeText(this, "Data Updated", Toast.LENGTH_SHORT).show();

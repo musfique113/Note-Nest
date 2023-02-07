@@ -73,7 +73,6 @@
                 android:background="@drawable/green"
                 android:layout_gravity="center"
                 android:layout_marginLeft="5dp"
-                android:src="@drawable/baseline_done_24"
                 android:layout_marginRight="10dp"/>
             <ImageView
                 android:id="@+id/yellowPriority"
