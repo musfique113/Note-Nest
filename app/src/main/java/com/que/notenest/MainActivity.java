@@ -5,11 +5,17 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -18,6 +24,7 @@ import com.que.notenest.Adapter.NotesAdapter;
 import com.que.notenest.Model.Notes;
 import com.que.notenest.ViewModel.NotesViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     NotesAdapter adapter;
 
     TextView noFilter, hightolow, lowtohigh;
+    List<Notes> filterNotesAllList;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -81,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<Notes> notes) {
                 setAdapter(notes);
+                filterNotesAllList = notes;
             }
         });
 
@@ -92,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onChanged(List<Notes> notes) {
                     setAdapter(notes);
+
                 }
             });
         } else if(i == 1){
@@ -99,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onChanged(List<Notes> notes) {
                     setAdapter(notes);
+                    filterNotesAllList = notes;
                 }
             });
         } else if(i == 2){
@@ -106,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onChanged(List<Notes> notes) {
                     setAdapter(notes);
+                    filterNotesAllList = notes;
                 }
             });
         }
@@ -113,9 +125,52 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setAdapter(List<Notes> notes) {
-        notesRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        notesRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         adapter = new NotesAdapter(MainActivity.this, notes);
         notesRecyclerView.setAdapter(adapter);
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.search_notes, menu);
+        MenuItem menuItem = menu.findItem(R.id.app_bar_search);
+        SearchView searchView =(SearchView) menuItem.getActionView();
+        searchView.setQueryHint("Search Notes");
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                NotesFilter(newText);
+                return false;
+            }
+        });
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+
+
+
+    // for search
+    private void NotesFilter(String newText) {
+        Log.e("@@@@", "NotesFilter: "+newText );
+
+        ArrayList<Notes> FilterNames = new ArrayList<>();
+        for (Notes notes:this.filterNotesAllList){
+            if (notes.notesTitel.contains(newText) || notes.notesSubtitel.contains(newText)){
+                FilterNames.add(notes);
+            }
+        }
+        this.adapter.searchNotes(FilterNames);
+
+    }
+
+
+
 }

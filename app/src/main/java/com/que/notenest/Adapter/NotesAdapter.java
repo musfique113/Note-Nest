@@ -15,17 +15,25 @@ import com.que.notenest.MainActivity;
 import com.que.notenest.Model.Notes;
 import com.que.notenest.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.notesViewholder> {
 
     MainActivity mainActivity;
     List<Notes> notes;
+    List<Notes> allNotesItem;
 
     public NotesAdapter(MainActivity mainActivity, List<Notes> notes) {
         this.mainActivity = mainActivity;
         this.notes = notes;
+        allNotesItem = new ArrayList<>(notes);
 
+    }
+
+    public void searchNotes(List<Notes> filterername ){
+        this.notes = filterername;
+        notifyDataSetChanged();
     }
 
     @NonNull

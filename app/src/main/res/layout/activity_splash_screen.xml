@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/red"
     tools:context=".Activity.SplashScreen">
 
     <ImageView
@@ -26,7 +27,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/psbold"
         android:text="NoteNest"
-        android:textColor="@color/red"
+        android:textColor="@color/red1"
         android:textSize="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
