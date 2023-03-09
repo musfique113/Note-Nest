@@ -28,4 +28,5 @@ public class Notes {
     @ColumnInfo(name = "notes_priority")
     public String notesPriority;
 
+
 }

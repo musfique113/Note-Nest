@@ -161,6 +161,8 @@ public class MainActivity extends AppCompatActivity {
     private void NotesFilter(String newText) {
         Log.e("@@@@", "NotesFilter: "+newText );
 
+//        fdfghh
+
         ArrayList<Notes> FilterNames = new ArrayList<>();
         for (Notes notes:this.filterNotesAllList){
             if (notes.notesTitel.contains(newText) || notes.notesSubtitel.contains(newText)){
